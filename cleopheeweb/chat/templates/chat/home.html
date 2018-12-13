@@ -1,0 +1,751 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>
+      CHATSCRIPT SERVER
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+	      html, body {
+        margin: 0 auto;
+        padding: 0;
+        text-align: left;
+        font-family: sans-serif;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: normal;
+      }
+
+      h1 {
+        font-family: sans-serif;
+        margin: 10px 0 0 0;
+        font-size: 20px;
+        line-height: 20px;
+        color: #700000;
+        float: left;
+      }
+
+      h3 {
+        color: black;
+        font-size: 14px;
+        margin: 0;
+      }
+
+      h4 {
+        font-size: 14px;
+        margin: 0;
+      }
+
+      .container {
+          margin: 0 auto;
+          width: 80vw;
+      }
+      
+      #allPanel {
+        min-width: 200px;
+        min-height: 200px;
+        width: 100%;
+        height: 5vh;
+        margin: 0px auto;
+      } 
+      
+      #topPanel {
+        min-width: 200px;
+        min-height: 200px;
+        width: 100%;
+        height: 5vh;
+        margin: 0px auto;
+      }	
+      
+      #main .container {
+          overflow: hidden;
+      }
+      
+    .line {
+        color: white;
+        height: 120px;
+      }
+      
+      #chatbox {
+        width: 50%;
+        height: 250%;
+        float:  left;
+        margin: 20px 0 30px 5%;
+        padding-bottom: 50px;
+        overflow: auto;
+      }
+      
+      #responseHolder {
+        min-width: 400px;
+        min-height: 250px;
+        width: 50%;
+        margin: 1px auto;
+        background-color: lightgrey;
+        border-radius: 12px;
+        padding: 10px;
+        font-family: Arial;
+        font-size: 10pt;
+        font-style: normal;
+        font-weight: normal;
+      }
+      
+      #avatarbox {
+        width: 20%;
+        height: 100%;
+        float:  left;
+        margin: 20px 0 30px 5%;
+        padding-bottom: 50px;
+      }
+	    
+      .avatarHolder {
+        border-radius: 5px;
+        width: 20%;
+        height: 20%;
+        max-height: 50vh;
+        padding: 0;
+        float: left;
+        margin: 20px 0 30px 0;
+      }
+
+      #avatarImage {
+        max-height: 50vh;
+        height: auto;
+      }
+        
+      #formpanel {
+	min-width: 400px;
+	min-height: 200px;
+	width: 70%;
+        overflow: auto;
+	margin: 0px auto;
+	font-family: Arial;
+	font-size: 10pt;
+	font-style: normal;
+	font-weight: normal;
+      }
+      #form_table {
+        width: 100%;
+        overflow: auto;
+        margin: 0px auto;
+      }
+      #txtUser {
+	padding: 2px;
+      }
+      #txtMessage {
+	width: 90%;
+	right-margin: 5px;
+	padding: 2px;
+      }
+      #speechcontainer {
+	margin: 10px auto;
+        border-style: solid;
+        border-width: 1px;
+	border-radius: 12px;
+	border-color: darkgrey;
+	width: 100%;
+	height: 80px;
+	padding: 10px;
+	font: Arial;
+	font-size: 10pt;
+	font-style: normal;
+	font-weight: normal;
+	color: black;
+      }
+      #button_panel {
+        width: 80%;
+      }
+      #btnMicrophone { 
+	margin: 10px;
+	float: left;	
+	}
+      #results {
+	font-family: cursive,Arial;
+	font-size: 14pt;
+	font-style: italic;
+	font-weight: normal;
+	color: darkgrey;
+        margin: 10px;
+
+      }
+    </style>
+    <!--<script type="text/javascript">
+	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+navigator.getUserMedia(
+{
+   audio: true
+},
+function (e) {
+   // success
+},
+function (e) {
+   // error
+   console.error(e);
+});
+     </script>-->
+     {% load static %}
+     <!--<script language="javascript" type="text/javascript" src="{% static 'chat/p5.sound.js' %}"></script>-->
+     <link rel="stylesheet" href="{% static 'chat/css/agent.css' %}">
+     
+     <script src="{% static 'chat/p5/p5.min.js' %}"></script>
+    <script src="{% static 'chat/p5/addons/p5.dom.min.js' %}"></script>
+    <script src="{% static 'chat/p5/addons/p5.sound.min.js' %}"></script>
+    
+  </head>
+  <body>
+    <div class="b-agent_header">
+          <div class="b-agent_header-icon">
+              <img id="agent-avatar" src="{% static 'chat/images/femme_enceinte_vert.png' %}">
+          </div>
+          <div class="b-agent_header-wrapper">
+              <div class="b-agent_header-agent-name">Cléophée</div>
+              <div class="b-agent_header-description">Assistant virtuel <h2 align="right">Sign out</h2> </div>
+          </div>
+    </div>
+    <div class="line"></div>
+    <div id="allPanel">
+      <div id="topPanel">
+        <div id="avatarbox">
+          <h4>
+            Assistant virtuel répondant aux inquiétudes d'une femme enceinte pour un bon suivi médical.
+          </h4>
+          <!--<div class="avatarHolder">
+            <img  id="avatarImage" src="{% static 'chat/images/CEA_logotype2012.png' %}" alt="logo cea" style="border-radius: 12px;" width="100%" height="auto" >
+          <button onclick="myfiledownload()">Log</download>
+          </div>-->
+        </div>
+        
+      <div id="formpanel">
+       <!-- <div>
+          <input type="checkbox" name="autosend" value="checked" checked onclick="if (this.checked) {cbAutoSend = this.value} else { cbAutoSend = '' }"/> Continuous Speech Input
+          <input type="checkbox" name="speech" value="checked" checked onclick="if (this.checked) {cbAutoSpeech = this.value} else { cbAutoSpeech = '' }"/> Speech Output
+        </div> -->
+        <form id="frmChat" action="#">
+          <table id="form_table" >
+            <tr>
+              <td>Name:</td>
+              <td>
+                <input type="text" id="txtUser" name="user" size="20" value="User" />
+                <input type="hidden" name="send" />
+              </td>
+            </tr>
+            <tr>
+            
+              <td>Message:</td>
+              <td><input type="text" name="message" id="txtMessage" size="80" /></td>
+              <td><input type="submit" name="send1" value="Send Input" /></td>
+            </tr>
+            <!---Added this row for Speech Recognition--->
+            <tr>
+              <td colspan="2">
+                <div id="speechcontainer" >
+                  <div id="info">Or click on the microphone icon and begin speaking.</div>
+                  <div id="button_panel">
+                    <button id="btnMicrophone" type="button" value="microphone" onclick="activeson();">
+                      <img id="start_img" src="{% static 'chat/images/mic.gif' %}" alt="Start">
+                    </button> 
+                  </div>
+                  <div id="results">
+                    <span id="final_span" class="final"></span>
+                    <span id="interim_span" class="interim"></span>
+                  </div>
+
+                </div>
+              </td>
+              
+            </tr>
+          </table>
+        </form>
+      </div> <!-- end formPanel -->
+      <div id="chatbox">
+          <div id="responseHolder"></div>
+
+          <span id="audio"></span>
+
+          <!--<tr>-->
+           <!--<td><button id="bt-contact" type="button" onclick="reponse()"> Varier reponse</button></td>-->
+            <!--<td><button id="bt-contact2" type="button" onclick="afficher()"> Varier question</button></td>-->
+        <!--</tr>-->
+          </div>
+
+          <form id="frmChat2" action="#">
+     <div>
+          <table id="form_table2" style="display:none" >
+    <tr>
+        <tr>
+
+              <td>Question :</td>
+              <td>
+                <input type="text" id="txtquestion" name="quest" size="80" value="" />
+                <input type="hidden" name="send" />
+              </td>
+        </tr>
+
+          <tr>
+              <td>Reponse :</td>
+              <td><input type="text" name="repon" id="txtreponse" size="80" ></td>
+              <td><input type="submit" name="send" value="Soumettre" /></td>
+            </tr>
+          </tr>
+
+               </table>
+         </div>
+              </form>
+
+            </div> <!-- end topPanel -->
+
+
+
+
+    </div> <!-- end allPanel -->
+
+
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript">
+
+
+var botName = 'Simone';		// change this to your bot name
+var sfile;
+var name= 'User';
+
+// declare timer variables
+var alarm = null;
+var callback = null;
+var loopback = null;
+var yousaid = null;
+
+var state = 0;
+var leftchannel = [];
+var rightchannel = [];
+var recorder = null;
+var recordingLength = 0;
+var volume = null;
+var mediaStream = null;
+var sampleRate = 44100;
+var context = null;
+var blob = null;
+var form = null;
+var buffer = null;
+
+$(function(){
+	$('#frmChat').submit(function(e){
+	// this function overrides the form's submit() method, allowing us to use AJAX calls to communicate with the ChatScript server
+	e.preventDefault();  // Prevent the default submit() method
+     name = $('#txtUser').val();
+    if (name == '') {
+		alert('Please provide your name.');
+		document.getElementById('txtUser').focus();
+    }
+    mesmm = $('#txtMessage').val();
+	var chatLog = $('#responseHolder').html();
+	 youSaid = '<strong>' + name + ':</strong> ' + $('#txtMessage').val() + "<br>\n";
+	update(youSaid);
+	var data = $(this).serialize();
+	sendMessage(data);
+	$('#txtMessage').val('').focus();
+	});
+
+	// any user typing cancels loopback or callback for this round
+	$('#txtMessage').keypress(function(){
+          window.clearInterval(loopback);
+          window.clearTimeout(callback);
+        });
+
+
+
+
+    $('#frmChat2').submit(function(e){
+    e.preventDefault();
+    var rep = $('#txtreponse').val();
+    if(rep == '') {
+        alert('veuillez remplir le champ reponse');
+        document.getElementById('txtreponse').focus();
+
+        }
+
+       chaine = $('#txtreponse').val();
+       sendreponse(chaine);
+
+     });
+
+
+});
+
+
+function myfiledownload(){
+    window.location.href = "{% static 'chat/logchat.txt' %}"
+}
+
+
+function sendMessage(data){ //Sends inputs to the ChatScript server, and returns the response-  data - a JSON string of input information
+$.ajax({
+	url: 'chat/cs/',
+	dataType: 'text',
+	data: {
+	      msgtxt:$('#txtMessage').val(),
+	      },
+    type: 'post',
+    success: function(response){
+		processResponse(parseCommands(response));
+    },
+    error: function(xhr, status, error){
+		alert('oops? Status = ' + status + ', error message = ' + error + "\nResponse = " + xhr.responseText);
+    }
+  });
+}
+
+function sendSpeechFile(){
+console.log("start sending binary data...");
+form = new FormData();
+form.append('file_name', blob, 'record.wav');
+$.ajax({
+    url: 'chat/speech/',
+    dataType: "text",
+    data: form,
+    type: 'post',
+    processData: false,
+    contentType: false,
+    success: function(response){
+            if(response.split(":")[1]==="problème micro"){
+                    alert("Problème au niveau de l'enregistreur");
+                    }else{
+                            youSaid = '<strong>' + name + ':</strong> ' + response.split(":")[0] + "<br>\n";
+                        	update(youSaid);
+                        	processResponse(parseCommands(response.split(":")[1]));
+                        	playAudio();
+                            }
+   
+    },
+    error: function(xhr, status, error){
+		alert('oops? Status = ' + status + ', error message = ' + error + "\nResponse = " + xhr.responseText);
+    }
+
+
+});
+
+
+}
+
+function sendreponse(chaine){
+$.ajax({
+
+    url: 'v_reponse/',
+    datatype: 'text',
+    data: {
+	      msgrep:$('#txtreponse').val(),
+	      },
+    type: 'post',
+    success: function(response){
+      alert('Merci daméliorer mes connaissances');
+    },
+    error: function(xhr, status, error){
+		alert('oops? Status = ' + status + ', error message = ' + error + "\nResponse = " + xhr.responseText);
+    }
+});
+}
+
+
+
+function parseCommands(response){ // Response is data from CS server. This processes OOB commands sent from the CS server returning the remaining response w/o oob commands
+
+	var len  = response.length;
+	var i = -1;
+	while (++i < len )
+	{
+		if (response.charAt(i) == ' ' || response.charAt(i) == '\t') continue; // starting whitespace
+		if (response.charAt(i) == '[') break;	// we have an oob starter
+		return response;						// there is no oob data
+	}
+	if ( i == len) return response; // no starter found
+	var user = $('#txtUser').val();
+
+	// walk string to find oob data and when ended return rest of string
+	var start = 0;
+	while (++i < len )
+	{
+		if (response.charAt(i) == ' ' || response.charAt(i) == ']') // separation
+		{
+			if (start != 0) // new oob chunk
+			{
+				var blob = response.slice(start,i);
+				start = 0;
+
+				var commandArr = blob.split('=');
+				if (commandArr.length == 1) continue;	// failed to split left=right
+
+				var command = commandArr[0]; // left side is command
+				var interval = (commandArr.length > 1) ? commandArr[1].trim() : -1; // right side is millisecond count
+				if (interval == 0)  /* abort timeout item */
+				{
+					switch (command){
+						case 'alarm':
+							window.clearTimeout(alarm);
+							alarm = null;
+							break;
+						case 'callback':
+							window.clearTimeout(callback);
+							callback = null;
+							break;
+						case 'loopback':
+							window.clearInterval(loopback);
+							loopback = null;
+							break;
+					}
+				}
+				else if (interval == -1) interval = -1; // do nothing
+				else
+				{
+					var timeoutmsg = {user: user, send: true, message: '[' + command + ' ]'}; // send naked command if timer goes off
+					switch (command) {
+						case 'alarm':
+							alarm = setTimeout(function(){sendMessage(timeoutmsg );}, interval);
+							break;
+						case 'callback':
+							callback = setTimeout(function(){sendMessage(timeoutmsg );}, interval);
+							break;
+						case 'loopback':
+							loopback = setInterval(function(){sendMessage(timeoutmsg );}, interval);
+							break;
+                                                case 'avatar' :
+                                                        document.getElementById("avatarImage").src = "images/" + interval;
+                                                        break;
+					}
+				}
+			} // end new oob chunk
+			if (response.charAt(i) == ']') return response.slice(i + 2); // return rest of string, skipping over space after ]
+		} // end if
+		else if (start == 0) start = i;	// begin new text blob
+	} // end while
+	return response;	// should never get here
+ }
+
+function update(text){ // text is  HTML code to append to the 'chat log' div. This appends the input text to the response div
+	var chatLog = $('#responseHolder').html();
+	$('#responseHolder').html(text + chatLog);
+	var rhd = $('#responseHolder');
+	var h = rhd.get(0).scrollHeight;
+	rhd.scrollTop(h);
+}
+
+function processResponse(response) { // given the final CS text, converts the parsed response from the CS server into HTML code for adding to the response holder div
+	var botSaid = '<strong>' + botName + ':</strong> ' + response + "<br>\n";
+	update(botSaid);
+}
+
+
+//speech recording
+
+function microphoneClick(event) {
+    if (recognizing) {
+      recognition.stop();
+      return;
+    }
+    final_transcript = '';
+    txtMessage.value = '';
+    recognition.start();
+    ignore_onend = false;
+    final_span.innerHTML = '';
+    interim_span.innerHTML = '';
+    start_img.src = 'mic-slash.gif';
+    info.innerHTML = " Click the Allow button above to enable your microphone.";
+    start_timestamp = event.timeStamp;
+
+  }
+
+
+  var onFail = function(e) {
+				console.log('Rejected!', e);
+			};
+
+			var onSuccess = function(s) {
+				stream = s;
+			}
+
+			window.URL = window.URL || window.webkitURL;
+			navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+
+			var stream;
+			var audio = document.querySelector('audio');
+
+			function startRecording() {
+				if (navigator.getUserMedia) {
+					navigator.getUserMedia({audio: true}, onSuccess, onFail);
+				} else {
+					console.log('navigator.getUserMedia not present');
+				}
+			}
+
+			function stopRecording() {
+				audio.src = window.URL.createObjectURL(stream);
+			}
+
+
+//pour enregistrer avec p5.sound
+
+
+
+function activeson() {
+  // use the '.enabled' boolean to make sure user enabled the mic (otherwise we'd record silence)
+  if(state === 0){
+
+   leftchannel = [];
+ rightchannel = [];
+recordingLength = 0;
+recorder = null;
+blob = null;
+
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+            navigator.getUserMedia(
+            {
+                audio: true
+            },
+            function (e) {
+                console.log("user consent");
+                // creates the audio context
+                window.AudioContext = window.AudioContext || window.webkitAudioContext;
+                context = new AudioContext();
+                // creates an audio node from the microphone incoming stream
+                mediaStream = context.createMediaStreamSource(e);
+                // https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createScriptProcessor
+                // bufferSize: the onaudioprocess event is called when the buffer is full
+                var bufferSize = 2048;
+                var numberOfInputChannels = 2;
+                var numberOfOutputChannels = 2;
+                if (context.createScriptProcessor) {
+                    recorder = context.createScriptProcessor(bufferSize, numberOfInputChannels, numberOfOutputChannels);
+                } else {
+                    recorder = context.createJavaScriptNode(bufferSize, numberOfInputChannels, numberOfOutputChannels);
+                }
+                recorder.onaudioprocess = function (e) {
+                    leftchannel.push(new Float32Array(e.inputBuffer.getChannelData(0)));
+                    rightchannel.push(new Float32Array(e.inputBuffer.getChannelData(1)));
+                    recordingLength += bufferSize;
+                }
+                // we connect the recorder
+                mediaStream.connect(recorder);
+                recorder.connect(context.destination);
+            },
+                        function (e) {
+                            console.error(e);
+                        });
+info.innerHTML =  " Parlez maintenant.";
+    start_img.src = "{% static 'chat/images/mic-animate.gif' %}";
+state++
+
+  }
+
+  else if (state === 1){
+
+            // stop recording
+            recorder.disconnect(context.destination);
+            mediaStream.disconnect(recorder);
+            // we flat the left and right channels down
+            // Float32Array[] => Float32Array
+            var leftBuffer = flattenArray(leftchannel, recordingLength);
+            var rightBuffer = flattenArray(rightchannel, recordingLength);
+            // we interleave both channels together
+            // [left[0],right[0],left[1],right[1],...]
+            var interleaved = interleave(leftBuffer, rightBuffer);
+            // we create our wav file
+             buffer = new ArrayBuffer(44 + interleaved.length * 2);
+            var view = new DataView(buffer);
+            // RIFF chunk descriptor
+            writeUTFBytes(view, 0, 'RIFF');
+            view.setUint32(4, 44 + interleaved.length * 2, true);
+            writeUTFBytes(view, 8, 'WAVE');
+            // FMT sub-chunk
+            writeUTFBytes(view, 12, 'fmt ');
+            view.setUint32(16, 16, true); // chunkSize
+            view.setUint16(20, 1, true); // wFormatTag
+            view.setUint16(22, 2, true); // wChannels: stereo (2 channels)
+            view.setUint32(24, sampleRate, true); // dwSamplesPerSec
+            view.setUint32(28, sampleRate * 4, true); // dwAvgBytesPerSec
+            view.setUint16(32, 4, true); // wBlockAlign
+            view.setUint16(34, 16, true); // wBitsPerSample
+            // data sub-chunk
+            writeUTFBytes(view, 36, 'data');
+            view.setUint32(40, interleaved.length * 2, true);
+            // write the PCM samples
+            var index = 44;
+            var volume = 1;
+            for (var i = 0; i < interleaved.length; i++) {
+                view.setInt16(index, interleaved[i] * (0x7FFF * volume), true);
+                index += 2;
+            }
+            // our final blob
+            blob = new Blob([view], { type: 'audio/wav' });
+            start_img.src = "{% static 'chat/images/mic.gif' %}";
+            info.innerHTML =  " Clicker et parler.";
+            state--
+            sendSpeechFile();
+            context.close();
+
+
+  }
+
+
+}
+
+
+        function flattenArray(channelBuffer, recordingLength) {
+            var result = new Float32Array(recordingLength);
+            var offset = 0;
+            for (var i = 0; i < channelBuffer.length; i++) {
+                var buffer = channelBuffer[i];
+                result.set(buffer, offset);
+                offset += buffer.length;
+            }
+            return result;
+        }
+        function interleave(leftChannel, rightChannel) {
+            var length = leftChannel.length + rightChannel.length;
+            var result = new Float32Array(length);
+            var inputIndex = 0;
+            for (var index = 0; index < length;) {
+                result[index++] = leftChannel[inputIndex];
+                result[index++] = rightChannel[inputIndex];
+                inputIndex++;
+            }
+            return result;
+        }
+        function writeUTFBytes(view, offset, string) {
+            for (var i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+
+
+
+        function playAudio() {
+        //$('#audio').html('<audio autoplay><source src="{% static 'chat/synth.wav?ts=12345' %}"></audio>');
+	  $('#audio').html('<audio id = "plysnd"><source src=""></audio>');
+	  var plysnd = document.getElementById('plysnd');
+	  var tim = new Date().getTime()
+	  var sc = "{% static 'chat/synth.wav' %}"
+	  plysnd.src = sc + "?" + tim;
+	  plysnd.load();
+	  plysnd.play();
+        }
+        
+         function playAudio2() {
+        //$('#audio').html('<audio autoplay><source src="{% static 'chat/synth.wav?ts=12345' %}"></audio>');
+	  $('#audio').html('<audio id = "plysnd"><source src=""></audio>');
+	  var plysnd = document.getElementById('plysnd');
+	  var tim = new Date().getTime()
+	  var sc = "{% static 'chat/micro.wav' %}"
+	  plysnd.src = sc + "?" + tim;
+	  plysnd.load();
+	  plysnd.play();
+        }
+
+
+
+
+// nouveau recording
+
+
+
+
+</script>
+
+  </body>
+  </html> 

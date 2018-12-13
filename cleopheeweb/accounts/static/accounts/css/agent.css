@@ -1,0 +1,64 @@
+.b-agent_header {
+  min-height: 80px;
+  height: 80px;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #2b303e;
+  display: table;
+}
+
+.b-agent_header-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.b-agent_header-icon {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  /*background-color: #A5D175;*/
+  overflow: hidden;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.b-agent_header-icon > img {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border: 0;
+  margin: auto;
+}
+
+.b-agent_header-agent-name {
+  padding-left: 80px;
+  font-size: 18px;
+  color: white;
+}
+
+.b-agent_header-description {
+  color: #B7BBC4;
+  padding-left: 80px;
+  padding-top: 7px;
+  font-size: 12px;
+  display: block; /* Fallback for non-webkit */
+  display: -webkit-box;
+  max-height: 24px; /* Fallback for non-webkit */
+  margin: 0 auto;
+  line-height: 1;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+} 

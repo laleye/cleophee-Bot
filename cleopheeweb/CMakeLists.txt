@@ -1,0 +1,17 @@
+
+install(DIRECTORY accounts DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(DIRECTORY cleopheeweb DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(DIRECTORY chat DESTINATION ${CMAKE_INSTALL_PREFIX})
+# install(DIRECTORY db4MedicalFile DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(DIRECTORY templates DESTINATION ${CMAKE_INSTALL_PREFIX})
+# install(DIRECTORY configuration DESTINATION ${CMAKE_INSTALL_PREFIX})
+
+install(
+  FILES
+#     conv.json
+    manage.py
+#     mic_config.txt
+#     voyons.py
+  DESTINATION ${CMAKE_INSTALL_PREFIX}
+)
+

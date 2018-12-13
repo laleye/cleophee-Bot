@@ -9,7 +9,7 @@ message("ENV{LIMA_PACKRUN} $ENV{LIMA_PACKRUN}")
 set(LIMA_PACKRUN $ENV{LIMA_PACKRUN})
 
 add_subdirectory(Resources)
-# add_subdirectory(labforsims)
+add_subdirectory(cleopheeweb)
 
 # install(DIRECTORY db DESTINATION ${CMAKE_INSTALL_PREFIX})
 
