@@ -1,0 +1,7 @@
+topic: ~alimentation keep repeat (~enceinte)
+
+# quelle  est l'alimentation d'une femme enceinte
+# quelle est l'alimentation pendant ma grossesse
+u: (<< ~quel alimentation [~enceinte ~grossesse] >>) des protéines
+
+# que dois-je manger une femme enceinte

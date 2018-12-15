@@ -24,5 +24,7 @@ endif()
 install(FILES
 #     ${CMAKE_CURRENT_BINARY_DIR}/chatscript_settings.py
     README.md
+    run_cleophee.py
+    chatscript.py
   DESTINATION ${CMAKE_INSTALL_PREFIX}
 )

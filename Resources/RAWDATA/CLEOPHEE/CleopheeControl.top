@@ -1,13 +1,13 @@
 rename: @chatoutput @9
 
 
-outputmacro: chirurgien() 
-^addtopic(~diagnostic)
+outputmacro: cleophee() 
+^addtopic(~introduction)
 $cs_control_main = ~control
 $cs_language = French
 $cs_externaltag = ~xPOSTAGSENTENCE 
 $userprompt = ^"%user: >"
-$botprompt = ^"chirurgien : "
+$botprompt = ^"cleophee : "
 $cs_token = #NO_HYPHEN_END | #DO_INTERJECTION_SPLITTING  | #DO_SUBSTITUTE_SYSTEM   | #DO_NUMBER_MERGE | #DO_DATE_MERGE  
 ˆclearcontext ()
 
@@ -20,12 +20,12 @@ u: () nofail(topic rejoinder())
 table: defaultbot (^name)
 ^createfact(^name defaultbot defaultbot)
 DATA:
-chirurgien
+cleophee
 
 topic: ~control system ()
 # on startup, do introduction
 u: ( %input<%userfirstline) 
-	gambit(~diagnostic)
+	gambit(~introduction)
 
 # get a master copy of input then do our normal copies
 
