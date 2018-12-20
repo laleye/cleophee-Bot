@@ -1,0 +1,59 @@
+topic: ~general keep repeat ()
+
+
+# Que puis-je faire contre les nausées du début de la grossesse ? 
+u: (<< [~contrer ~arreter] [~vomissement ~vomir] [~commencer ~commencement] [~enceinte ~grossesse] >>)
+    $type=quoi
+    $intent=general
+    $kw=vomissement
+    $action=stop
+
+# quand dois-je faire ma première consultation
+u: (<< ~quand  [~consulter ~consultation ~faire__V] ~premier ~fois >>)
+    $type=quand
+    $intent=general
+    $kw=consultation
+
+# quand dois-je faire ma première consultation  
+u: (<< ~quand  [~consulter ~consultation ~faire__V] ~premier >>)
+    $type=quand
+    $intent=general
+    $kw=consultation
+  
+  
+# Par qui puis-je faire suivre ma grossesse ?  
+u: (<< ~qui [~traiter ~traitement] [~enceinte ~grossesse] >>)
+    $type=qui
+    $intent=general
+    $kw=suivi
+ 
+ 
+# Que puis-je faire contre les nausées du début de la grossesse ? 
+u: (<< [~contrer ~arreter] [~vomissement ~vomir] [~commencer ~commencement] [~enceinte ~grossesse] >>)
+ 
+#  Puis-je dormir sur le ventre ? 
+u: (<< ~dormir ~abdomen >>) 
+    $type=info
+    $intent=general
+    $kw=dormir
+    
+# Quelle est la différence entre les semaines d'aménorrhée et les semaines de grossesse ? 
+u: (<< ~quel [~different ~differencier] ~amenorrhee ~grossesse >>)
+    $type=quoi
+    $intent=general
+    $kw=amenorrhee
+    
+# Quand vais-je sentir bouger mon bébé ?
+u: (<< ~quand ~bouger ~enfant >>) 
+    $type=quand
+    $intent=general
+    $kw=bebe
+    $action=bouger
+    est-ce votre premier enfant que vous attendez?
+    a: (~yes)
+        $yesno=yes
+    a: (~no)
+        $yesno=no
+    a: ()
+        $yesno=other
+        

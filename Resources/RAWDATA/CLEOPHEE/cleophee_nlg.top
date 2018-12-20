@@ -1,0 +1,23 @@
+topic: ~cleophee_nlg nostay ()
+
+u: ($type=quoi $intent=alimentation $kw=no) [Pendant la grossesse, la femme doit manger beaucoup de fruits et légumes][des  légumes et fruits, produits céréaliers, lait et substituts, viandes et substituts]
+
+u: ($type=quoi $intent=alimentation $kw=advise) Pour vos besoins nutritifs, vous devez manger trois repas par jour, prendre de deux à trois collation par jour, soit des fruits, soit du yaourt, un verre de lait, manger une variété, manger de façon régulière 
+
+u: ($type=quoi $intent=alimentation $kw=allergie_enfant) [aucun moyen de prévenir les allergies durant la grossesse. Ce n’est pas en évitant de manger des arachides, par exemple, que votre futur bébé risquera moins d’y être allergique. Il est déconseillé de se priver d’aliments durant la grossesse dans le but de prévenir des allergies. Cette privation peut entraîner des carences en de précieux nutriments.
+
+u: ($type=quoi $intent=alimentation $kw=pour_deux) manger pour deux ne signifie pas beaucoup manger mais manger mieux
+
+u: ($type=quand $intent=general $kw=consultation) Idéalement, il faut faire la première consultation avant dix semaines d’aménorrhée.
+
+u: ($type=qui $intent=general $kw=suivi) Le choix de la personne qui va suivre votre grossesse est totalement libre. Vous pouvez faire suivre votre grossesse par une sage-femme, par un gynécologue-obstétricien ou par votre médecin traitant s'il a l'habitude de suivre des grossesses., il faut faire la première consultation avant dix semaines d’aménorrhée.
+
+u: ($type=info $intent=general $kw=dormir)  Rien ne contre-indique le couchage sur le ventre durant la grossesse. Toutefois, il n'est généralement pas choisi par les mamans car dès que le ventre commence à se développer, cette position peut être jugée inconfortable par les mamans. Cependant certaines femmes dorment sur le ventre toute la grossesse, cela ne pose aucun souci.
+
+u: ($type=quoi $intent=general $kw=vomissement $action=stop) [Pour arrêter les nausées ou vomissements,  vous pouvez essayer de faire un petit déjeuner riche en sucres lents pour compenser le jeûne de la nuit, de répartir votre alimentation en plusieurs repas dans la journée (3 repas et 2 collations) en fractionnant par petits volumes, d’éviter le stress et de vous détendre au maximum, de boire au moins 1,5 l d’eau par jour pour éviter la déshydratation]
+
+u: ($type=quoi $intent=general $kw=amenorrhee) [En effet, le terme de la grossesse peut être exprimé en semaines d’aménorrhée, en semaines de grossesse ou en mois de grossesse. Les semaines d’aménorrhée se basent sur le premier jour des dernières règles, alors que les semaines de grossesse commencent le jour de la fécondation qui coïncide généralement avec le jour de l’ovulation. Comme exemple 3 mois est égal à  13 semaines de grossesse  et égal à 15 semaines d’aménorrhée]
+
+u: ($type=quand $intent=general $kw=bebe $action=bouger $yesno=yes) [Pour un premier bébé, les mouvements fœtaux ne sont perçus par la maman qu'à partir de 20 à 22 semaines d'aménorrhée.]
+
+u: ($type=quand $intent=general $kw=bebe $action=bouger $yesno=no) [Pour un premier bébé, les mouvements fœtaux ne sont perçus par la maman qu'à partir de 20 à 22 semaines d'aménorrhée.]
