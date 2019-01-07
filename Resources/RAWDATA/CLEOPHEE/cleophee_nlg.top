@@ -21,3 +21,5 @@ u: ($type=quoi $intent=general $kw=amenorrhee) [En effet, le terme de la grosses
 u: ($type=quand $intent=general $kw=bebe $action=bouger $yesno=yes) [Pour un premier bébé, les mouvements fœtaux ne sont perçus par la maman qu'à partir de 20 à 22 semaines d'aménorrhée.]
 
 u: ($type=quand $intent=general $kw=bebe $action=bouger $yesno=no) [Pour un premier bébé, les mouvements fœtaux ne sont perçus par la maman qu'à partir de 20 à 22 semaines d'aménorrhée.]
+
+u: ($type=quoi $intent=tabac $kw=bad) oui il est mauvais de consommer le tabac pendant la grossesse. Aussi le tabac est mauvais pour la fécondité parce qu'il peut augmenter le délai nécessaire à la conception. Vouloir avoir un enfant est une très bonne motivation à arrêter de fumer.

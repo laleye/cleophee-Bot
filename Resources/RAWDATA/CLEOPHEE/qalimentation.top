@@ -1,0 +1,40 @@
+topic: ~qalimentation keep repeat ( ~alimentation ~manger ~alimenter ~allergie )
+
+# quelle  est l'alimentation d'une femme enceinte
+# quelle est l'alimentation pendant ma grossesse
+# comment doit s'alimenter une femme enceinte
+
+ 
+# quelle est l'alimentation d'une femme enceite?
+u: ( << [~quel comment] [~alimentation ~alimenter ~repas] [~enceinte ~grossesse] >> ) 
+    $type=quoi
+    $intent=alimentation
+    $kw=no
+    ^respond(~cleophee_nlg) 
+    
+u: ( << ~quel ~alimentation [~manger avoir] >> )
+    $type=quoi
+    $intent=alimentation
+    $kw=no
+    ^respond(~cleophee_nlg)
+
+# que dois manger une femme enceinte
+u: ( << ~quel [~conseil ~conseiller] [~alimentation ~alimenter ~repas] >> ) 
+    $type=quoi
+    $intent=alimentation
+    $kw=advise
+    ^respond(~cleophee_nlg) 
+
+    
+u: ( << [~quel comment] [~alimentation ~alimenter ~repas] deux >> ) 
+    $type=quoi
+    $intent=alimentation
+    $kw=pour_deux
+    ^respond(~cleophee_nlg) 
+    
+Il y a-t-il u moyen de prévenir l'allergie chez le futur bébé?    
+u: ( << [~moyen ~quel] ~prevenir ~allergie ~enfant >> )
+    $type=quoi
+    $intent=alimentation
+    $kw=allergie_enfant
+

@@ -1,0 +1,12 @@
+topic: ~qtabac keep repeat (~fumez ~tabac)
+
+# est-il dangereux de fumer?
+# le tabagisme est-il mauvais pour la fécondité?
+u: (<< [~tabac ~fumez] [~aggraver ~dangereux ~risquer ~mauvais] >>)
+    $type=quoi
+    $intent=tabac
+    $kw=bad
+    ^respond(~cleophee_nlg) 
+    
+u: (tabac est dangereux) voila    
+u: (~tabac) oui
